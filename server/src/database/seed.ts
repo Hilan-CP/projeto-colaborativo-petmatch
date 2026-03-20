@@ -11,9 +11,14 @@ export async function seed() {
 	const now = new Date();
 
 	// Clear existing data
-	await db.delete(pet);
-	await db.delete(ong);
-	await db.delete(user);
+	try {
+		await db.delete(pet);
+		await db.delete(ong);
+		await db.delete(user);
+		console.log("Limpando dados existentes.\n\n");
+	} catch (error) {
+		console.error("Erro ao limpar dados existentes:", error);
+	}
 
 	// Insert Users
 	const [user1, user2] = await db
@@ -219,7 +224,7 @@ export async function seed() {
 		},
 	]);
 
-	console.log("Seed completed successfully!");
+	console.log("Seed concluído com sucesso!");
 }
 
 if (import.meta.main) {
