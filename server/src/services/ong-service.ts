@@ -10,7 +10,7 @@ export const ongService = {
 	getOngById: async (id: string) => {
 		const result = await ongRepository.getOngById(id);
 		if (result.length === 0) {
-			throw new EntityNotFound("Ong não encontrada");
+			throw new EntityNotFound("ONG não encontrada");
 		}
 		return result[0];
 	},
@@ -41,7 +41,7 @@ export const ongService = {
 			throw new DatabaseError("Erro inesperado ao atualizar ONG");
 		}
 		if (updateResult.length === 0) {
-			throw new EntityNotFound("Ong não encontrada");
+			throw new EntityNotFound("ONG não encontrada");
 		}
 		return updateResult[0];
 	},
