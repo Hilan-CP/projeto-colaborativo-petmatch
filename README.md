@@ -19,21 +19,6 @@ Sistema para adoção e cuidado animal, com API em Elysia/Bun e interface web em
 
 - Reportar bug: https://github.com/EvelynVitoria-Salomao/projeto-petmatch/issues/new
 - Solicitar feature: https://github.com/EvelynVitoria-Salomao/projeto-petmatch/issues/new
-### 📂 Back-end
-- `/database`: configuração do Drizzle e conexão do banco
-- `/repositories`: objetos de operações CRUD
-- `/services`: lógica de negócio
-- `/routes`: definição dos endpoints
-- `/lib`: configuração de bibliotecas de código
-- `/types`: definição de tipos
-
-Como executar o back-end:
-1. Após fazer o git pull, abra o terminal na pasta `/server` e execute `bun install` para instalar as dependências do projeto
-2. Execute o comando `docker-compose up -d` para subir o banco de dados
-3. Execute o comando `bun db:push` para criar o esquema no banco de dados
-4. Execute o comando `bun db:seed` para inserir os dados de teste
-5. Execute o comando `bun dev` para inicar o servidor back-end
-6. (Opcional) É possível usar `bun db:studio` para visualizar os dados do banco
 
 ## Sobre o projeto
 
