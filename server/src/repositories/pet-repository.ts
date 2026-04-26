@@ -1,7 +1,7 @@
 import { and, eq, ilike, ne } from "drizzle-orm";
 import { db } from "@/database/connection";
 import { ong, pet } from "@/database/schema";
-import type { PetQueryParams, PetRequest } from "@/types/pet-types";
+import type { PetQueryParams, PetRequest } from "@/types/models/pet-types";
 
 export const petRepository = {
 	getPets: async (params: PetQueryParams) => {

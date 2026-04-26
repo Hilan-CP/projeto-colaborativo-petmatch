@@ -1,7 +1,7 @@
 import { and, eq, ilike } from "drizzle-orm";
 import { db } from "@/database/connection";
 import { ong, user } from "@/database/schema";
-import type { OngQueryParams, OngRequest } from "@/types/ong-types";
+import type { OngQueryParams, OngRequest } from "@/types/models/ong-types";
 
 export const ongRepository = {
 	getOngById: async (id: string) => {

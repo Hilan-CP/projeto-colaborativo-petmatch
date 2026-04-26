@@ -5,7 +5,7 @@ import {
 	EntityNotFound,
 	ForbiddenError,
 } from "@/types/custom-errors";
-import type { PetQueryParams, PetRequest } from "@/types/pet-types";
+import type { PetQueryParams, PetRequest } from "@/types/models/pet-types";
 
 export const petService = {
 	getPets: async (params: PetQueryParams) => {
