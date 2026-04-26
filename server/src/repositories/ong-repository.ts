@@ -16,11 +16,15 @@ export const ongRepository = {
 			})
 			.returning();
 	},
-	updateOng: async (ongId: string, request: Partial<OngRequest>) => {
+	updateOng: async (
+		ongId: string,
+		userId: string,
+		request: Partial<OngRequest>,
+	) => {
 		return await db
 			.update(ong)
 			.set(request)
-			.where(eq(ong.id, ongId))
+			.where(and(eq(ong.id, ongId), eq(ong.userId, userId)))
 			.returning();
 	},
 	getOngAndUserIds: async (userId: string) => {
@@ -56,5 +60,14 @@ export const ongRepository = {
 					params.site ? eq(ong.site, params.site) : undefined,
 				),
 			);
-	}
+	},
+	ongExistsById: async (ongId: string) => {
+		const result = await db
+			.select({
+				ongId: ong.id,
+			})
+			.from(ong)
+			.where(eq(ong.id, ongId));
+		return result.length !== 0;
+	},
 };
