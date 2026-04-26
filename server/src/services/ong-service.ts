@@ -4,7 +4,7 @@ import {
 	EntityNotFound,
 	ForbiddenError,
 } from "@/types/custom-errors";
-import type { OngQueryParams, OngRequest } from "@/types/ong-types";
+import type { OngQueryParams, OngRequest } from "@/types/models/ong-types";
 
 export const ongService = {
 	getOngById: async (id: string) => {
