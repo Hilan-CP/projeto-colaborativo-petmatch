@@ -2,6 +2,10 @@ import { Elysia, t } from "elysia";
 import { betterAuthContext } from "@/routes/route-security";
 import { ongService } from "@/services/ong-service";
 import {
+	GeneralErrorResponse,
+	ValidationErrorResponse,
+} from "@/types/custom-errors";
+import {
 	OngBodyParse,
 	OngListResponse,
 	OngQueryParamsParse,
@@ -14,7 +18,9 @@ const ongRoutes = new Elysia({ prefix: "/ongs", tags: ["Ongs"] })
 		params: t.Object({ id: t.String({ format: "uuid" }) }),
 		response: {
 			200: t.Object(OngResponse.properties, { description: "ONG encontrada" }),
-			404: t.String({ description: "ONG não encontrada" }),
+			404: t.Object(GeneralErrorResponse.properties, {
+				description: "ONG não encontrada",
+			}),
 		},
 		detail: {
 			description: "Busca uma ONG por ID (sem autenticação)",
@@ -32,9 +38,13 @@ const ongRoutes = new Elysia({ prefix: "/ongs", tags: ["Ongs"] })
 				201: t.Object(OngResponse.properties, {
 					description: "ONG salva com sucesso",
 				}),
-				401: t.String({ description: "Usuário não autenticado" }),
-				422: t.Unknown({ description: "Dados inválidos" }),
-				500: t.String({ description: "Ocorreu um erro ao salvar a ONG" }),
+				401: t.Undefined({ description: "Usuário não autenticado" }),
+				422: t.Array(ValidationErrorResponse.items, {
+					description: "Dados inválidos",
+				}),
+				500: t.Object(GeneralErrorResponse.properties, {
+					description: "Ocorreu um erro ao salvar a ONG",
+				}),
 			},
 			detail: {
 				description:
@@ -54,13 +64,19 @@ const ongRoutes = new Elysia({ prefix: "/ongs", tags: ["Ongs"] })
 				200: t.Object(OngResponse.properties, {
 					description: "ONG salva com sucesso",
 				}),
-				401: t.String({ description: "Usuário não autenticado" }),
-				403: t.String({
+				401: t.Undefined({ description: "Usuário não autenticado" }),
+				403: t.Object(GeneralErrorResponse.properties, {
 					description: "Usuário não tem permissão para alterar a ONG",
 				}),
-				404: t.String({ description: "ONG não encontrada" }),
-				422: t.Unknown({ description: "Dados inválidos" }),
-				500: t.String({ description: "Ocorreu um erro ao salvar a ONG" }),
+				404: t.Object(GeneralErrorResponse.properties, {
+					description: "ONG não encontrada",
+				}),
+				422: t.Array(ValidationErrorResponse.items, {
+					description: "Dados inválidos",
+				}),
+				500: t.Object(GeneralErrorResponse.properties, {
+					description: "Ocorreu um erro ao salvar a ONG",
+				}),
 			},
 			detail: {
 				description:

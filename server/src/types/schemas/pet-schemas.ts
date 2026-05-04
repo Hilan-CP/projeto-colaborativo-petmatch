@@ -2,22 +2,54 @@ import { t } from "elysia";
 import { EspecieEnum, PorteEnum, SexoEnum } from "@/types/models/pet-types";
 
 export const PetQueryParamsParse = t.Object({
-	especie: t.Optional(t.Enum(EspecieEnum)),
-	sexo: t.Optional(t.Enum(SexoEnum)),
-	porte: t.Optional(t.Enum(PorteEnum)),
+	especie: t.Optional(
+		t.Enum(EspecieEnum, {
+			error:
+				"Espécie inválida. Valores permitidos: " + Object.values(EspecieEnum),
+		}),
+	),
+	sexo: t.Optional(
+		t.Enum(SexoEnum, {
+			error: "Sexo inválido. Valores permitidos: " + Object.values(SexoEnum),
+		}),
+	),
+	porte: t.Optional(
+		t.Enum(PorteEnum, {
+			error: "Porte inválido. Valores permitidos: " + Object.values(PorteEnum),
+		}),
+	),
 	cidade: t.Optional(t.String()),
 	nomeOng: t.Optional(t.String()),
 });
 
 export const PetBodyParse = t.Object({
-	nome: t.String({ maxLength: 255 }),
-	especie: t.Enum(EspecieEnum),
-	raca: t.String({ maxLength: 100 }),
-	sexo: t.Enum(SexoEnum),
-	porte: t.Enum(PorteEnum),
-	dataNascimento: t.Date(),
-	descricao: t.String(),
-	urlImagem: t.String(),
+	nome: t.String({
+		maxLength: 255,
+		error: "Nome deve ser um texto com até 255 caracteres.",
+	}),
+	especie: t.Enum(EspecieEnum, {
+		error:
+			"Espécie inválida. Valores permitidos: " + Object.values(EspecieEnum),
+	}),
+	raca: t.String({
+		maxLength: 100,
+		error: "Raça deve ser um texto com até 100 caracteres.",
+	}),
+	sexo: t.Enum(SexoEnum, {
+		error: "Sexo inválido. Valores permitidos: " + Object.values(SexoEnum),
+	}),
+	porte: t.Enum(PorteEnum, {
+		error: "Porte inválido. Valores permitidos: " + Object.values(PorteEnum),
+	}),
+	dataNascimento: t.Date({
+		error: "Data de Nascimento deve estar no formato ISO (YYYY-MM-DD).",
+	}),
+	descricao: t.String({
+		error: "A descrição é obrigatória e deve ser um texto.",
+	}),
+	urlImagem: t.String({
+		error: "A URL da imagem é obrigatória e deve ser um texto.",
+	}),
 });
 
 export const PetListResponse = t.Array(
