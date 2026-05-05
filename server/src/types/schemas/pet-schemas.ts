@@ -1,23 +1,31 @@
 import { t } from "elysia";
-import { EspecieEnum, PorteEnum, SexoEnum } from "@/types/models/pet-types";
+import { especieEnum, porteEnum, sexoEnum } from "@/database/schema";
+
+const EspecieParse = t.Union(
+	especieEnum.enumValues.map((especie) => t.Literal(especie)),
+	{
+		error: `Espécie inválida. Valores permitidos: ${especieEnum.enumValues}`,
+	},
+);
+
+const SexoParse = t.Union(
+	sexoEnum.enumValues.map((sexo) => t.Literal(sexo)),
+	{
+		error: `Sexo inválido. Valores permitidos: ${sexoEnum.enumValues}`,
+	},
+);
+
+const PorteParse = t.Union(
+	porteEnum.enumValues.map((porte) => t.Literal(porte)),
+	{
+		error: `Porte inválido. Valores permitidos: ${porteEnum.enumValues}`,
+	},
+);
 
 export const PetQueryParamsParse = t.Object({
-	especie: t.Optional(
-		t.Enum(EspecieEnum, {
-			error:
-				"Espécie inválida. Valores permitidos: " + Object.values(EspecieEnum),
-		}),
-	),
-	sexo: t.Optional(
-		t.Enum(SexoEnum, {
-			error: "Sexo inválido. Valores permitidos: " + Object.values(SexoEnum),
-		}),
-	),
-	porte: t.Optional(
-		t.Enum(PorteEnum, {
-			error: "Porte inválido. Valores permitidos: " + Object.values(PorteEnum),
-		}),
-	),
+	especie: t.Optional(EspecieParse),
+	sexo: t.Optional(SexoParse),
+	porte: t.Optional(PorteParse),
 	cidade: t.Optional(t.String()),
 	nomeOng: t.Optional(t.String()),
 });
@@ -27,20 +35,13 @@ export const PetBodyParse = t.Object({
 		maxLength: 255,
 		error: "Nome deve ser um texto com até 255 caracteres.",
 	}),
-	especie: t.Enum(EspecieEnum, {
-		error:
-			"Espécie inválida. Valores permitidos: " + Object.values(EspecieEnum),
-	}),
+	especie: EspecieParse,
 	raca: t.String({
 		maxLength: 100,
 		error: "Raça deve ser um texto com até 100 caracteres.",
 	}),
-	sexo: t.Enum(SexoEnum, {
-		error: "Sexo inválido. Valores permitidos: " + Object.values(SexoEnum),
-	}),
-	porte: t.Enum(PorteEnum, {
-		error: "Porte inválido. Valores permitidos: " + Object.values(PorteEnum),
-	}),
+	sexo: SexoParse,
+	porte: PorteParse,
 	dataNascimento: t.Date({
 		error: "Data de Nascimento deve estar no formato ISO (YYYY-MM-DD).",
 	}),

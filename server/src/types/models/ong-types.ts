@@ -1,27 +1,6 @@
-export type OngRequest = {
-	cnpj: string;
-	razaoSocial: string;
-	nomeFantasia: string;
-	telefone: string;
-	whatsapp?: string;
-	email: string;
-	site?: string;
-	instagram: string;
-	urlImagem: string;
-	cep: string;
-	uf: string;
-	cidade: string;
-	bairro: string;
-	logradouro: string;
-	numero: number;
-};
+import type { UnwrapSchema } from "elysia";
+import type { OngBodyParse, OngQueryParamsParse } from "@/types/schemas/ong-schemas";
 
-export type OngQueryParams = {
-	cnpj?: string;
-	razaoSocial?: string;
-	nomeFantasia?: string;
-	telefone?: string;
-	whatsapp?: string;
-	email?: string;
-	site?: string;
-};
+export type OngRequest = UnwrapSchema<typeof OngBodyParse>;
+
+export type OngQueryParams = UnwrapSchema<typeof OngQueryParamsParse>;
