@@ -10,7 +10,14 @@ services:
       - "5432:5432"
     volumes:
       - petmatch_data:/var/lib/postgresql
-      - ./petmatch_schema.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend
 
   server:
     build:
@@ -25,7 +32,10 @@ services:
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
       - BETTER_AUTH_URL=${BETTER_AUTH_URL}
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+    networks:
+      - backend
     volumes:
       - ./server:/usr/src/app
       - node_modules_server:/usr/src/app/node_modules
@@ -44,6 +54,10 @@ services:
     volumes:
       - ./web:/usr/src/app
       - node_modules_web:/usr/src/app/node_modules
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   petmatch_data:

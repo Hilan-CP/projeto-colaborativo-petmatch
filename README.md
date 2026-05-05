@@ -76,39 +76,35 @@ git clone https://github.com/EvelynVitoria-Salomao/projeto-petmatch.git
 cd projeto-petmatch
 ```
 
-### 2. Subir o backend
+### 2. Ajustar variáveis de ambiente para criação do ambiente do docker
+```bash
+cp .env.example .env
+```
+
+verificar as variáveis de ambiente no arquivo `.env` e ajustá-las conforme necessário.
+
+### 3. Subir todo o ambiente via docker compose
 
 ```bash
-cd server
-bun install
 docker compose up -d
-bun db:migrate
-bun db:seed
-bun dev
 ```
 
 Backend disponível em `http://localhost:3000`.
-
-### 3. Subir o frontend
-
-Em outro terminal:
-
-```bash
-cd web
-npm install
-npm run dev
-```
-
 Frontend disponível em `http://localhost:5173`.
 
-### 4. Parar os serviços
-
-Para parar o backend, use `Ctrl + C` no terminal onde ele está rodando.
-Para derrubar o banco:
+### 4. Rodar migrations e seed via docker compose
 
 ```bash
-cd server
-docker compose down -v
+docker compose exec server bun db:migrate
+docker compose exec server bun db:seed
+```
+
+### 5. Parar os serviços
+
+Para parar os serviços:
+
+```bash
+docker compose down
 ```
 
 ## Endpoints principais
