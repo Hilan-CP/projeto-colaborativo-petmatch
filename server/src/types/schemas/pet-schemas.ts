@@ -1,5 +1,6 @@
 import { t } from "elysia";
 import { especieEnum, porteEnum, sexoEnum } from "@/database/schema";
+import { OngResponse } from "@/types/schemas/ong-schemas";
 
 const EspecieParse = t.Union(
 	especieEnum.enumValues.map((especie) => t.Literal(especie)),
@@ -63,46 +64,6 @@ export const PetListResponse = t.Array(
 	}),
 );
 
-export const PetWithOngResponse = t.Object({
-	pet: t.Object({
-		id: t.String(),
-		nome: t.String(),
-		especie: t.String(),
-		raca: t.String(),
-		sexo: t.String(),
-		porte: t.String(),
-		dataNascimento: t.Date(),
-		descricao: t.String(),
-		urlImagem: t.String(),
-		adotado: t.Boolean(),
-		ongId: t.String(),
-		tutorId: t.Union([t.String(), t.Null()]),
-		createdAt: t.Date(),
-		updatedAt: t.Date(),
-	}),
-	ong: t.Object({
-		id: t.String(),
-		cnpj: t.String(),
-		razaoSocial: t.String(),
-		nomeFantasia: t.String(),
-		telefone: t.String(),
-		whatsapp: t.Union([t.String(), t.Null()]),
-		email: t.String(),
-		site: t.Union([t.String(), t.Null()]),
-		instagram: t.String(),
-		urlImagem: t.String(),
-		cep: t.String(),
-		uf: t.String(),
-		cidade: t.String(),
-		bairro: t.String(),
-		logradouro: t.String(),
-		numero: t.Number(),
-		userId: t.String(),
-		createdAt: t.Date(),
-		updatedAt: t.Date(),
-	}),
-});
-
 export const PetResponse = t.Object({
 	id: t.String(),
 	nome: t.String(),
@@ -118,4 +79,9 @@ export const PetResponse = t.Object({
 	tutorId: t.Union([t.String(), t.Null()]),
 	createdAt: t.Date(),
 	updatedAt: t.Date(),
+});
+
+export const PetWithOngResponse = t.Object({
+	pet: PetResponse,
+	ong: OngResponse,
 });

@@ -1,0 +1,1 @@
+ALTER TABLE "ong" ALTER COLUMN "numero" SET DATA TYPE varchar(10);

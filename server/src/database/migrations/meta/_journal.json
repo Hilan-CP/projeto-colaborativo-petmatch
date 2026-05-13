@@ -15,6 +15,13 @@
 			"when": 1775003209100,
 			"tag": "0001_brief_hulk",
 			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1778694847955,
+			"tag": "0002_broken_gateway",
+			"breakpoints": true
 		}
 	]
 }

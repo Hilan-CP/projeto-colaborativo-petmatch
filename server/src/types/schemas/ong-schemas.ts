@@ -66,7 +66,10 @@ export const OngBodyParse = t.Object({
 		maxLength: 255,
 		error: "Logradouro deve ser um texto com até 255 caracteres",
 	}),
-	numero: t.Numeric({ error: "Número deve ser um valor numérico" }),
+	numero: t.String({
+		maxLength: 10,
+		error: "Número deve ter até 10 dígitos podendo incluir letras",
+	}),
 });
 
 export const OngQueryParamsParse = t.Object({
@@ -107,7 +110,7 @@ export const OngResponse = t.Object({
 	cidade: t.String(),
 	bairro: t.String(),
 	logradouro: t.String(),
-	numero: t.Number(),
+	numero: t.String(),
 	userId: t.String(),
 	createdAt: t.Date(),
 	updatedAt: t.Date(),
