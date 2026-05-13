@@ -5,7 +5,6 @@ import {
 	check,
 	date,
 	index,
-	integer,
 	pgEnum,
 	pgTable,
 	text,
@@ -137,7 +136,7 @@ export const ong = pgTable(
 		cidade: varchar("cidade", { length: 255 }).notNull(),
 		bairro: varchar("bairro", { length: 255 }).notNull(),
 		logradouro: varchar("logradouro", { length: 255 }).notNull(),
-		numero: integer("numero").notNull(),
+		numero: varchar("numero", { length: 10 }).notNull(),
 		userId: uuid("user_id")
 			.notNull()
 			.references(() => user.id, { onDelete: "cascade" })
