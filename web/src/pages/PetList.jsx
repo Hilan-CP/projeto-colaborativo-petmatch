@@ -12,8 +12,9 @@ function PetList(){
       
         
         <div className="bg-[#27607B]">
-            <br />
-                    <Header/>
+            
+            <header className="bg-white h-20"> <Header/> </header>
+                   
             <h1 className="text-[30px] font-Poppins mt-[8%] flex text-center justify-center text-[#FF7A00] ">Encontre seu Pet</h1>
 
                     <span className="flex flex-wrap  justify-center gap-4 mb-20 mt-[8%]  grid-cols-1">
