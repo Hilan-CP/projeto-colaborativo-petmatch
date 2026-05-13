@@ -76,39 +76,35 @@ git clone https://github.com/EvelynVitoria-Salomao/projeto-petmatch.git
 cd projeto-petmatch
 ```
 
-### 2. Subir o backend
+### 2. Ajustar variáveis de ambiente para criação do ambiente do docker
+```bash
+cp .env.example .env
+```
+
+Verificar as variáveis de ambiente no arquivo `.env` e ajustá-las conforme necessário. No fluxo com **todos os serviços no Compose**, mantenha em `DATABASE_URL` o host **`database`** (nome do serviço no `docker-compose.yml`); `localhost` só funciona quando o backend roda na sua máquina e não dentro do container.
+
+### 3. Subir todo o ambiente via docker compose
 
 ```bash
-cd server
-bun install
 docker compose up -d
-bun db:migrate
-bun db:seed
-bun dev
 ```
 
 Backend disponível em `http://localhost:3000`.
-
-### 3. Subir o frontend
-
-Em outro terminal:
-
-```bash
-cd web
-npm install
-npm run dev
-```
-
 Frontend disponível em `http://localhost:5173`.
 
-### 4. Parar os serviços
-
-Para parar o backend, use `Ctrl + C` no terminal onde ele está rodando.
-Para derrubar o banco:
+### 4. Rodar migrations e seed via docker compose
 
 ```bash
-cd server
-docker compose down -v
+docker compose exec server bun db:migrate
+docker compose exec server bun db:seed
+```
+
+### 5. Parar os serviços
+
+Para parar os serviços:
+
+```bash
+docker compose down
 ```
 
 ## Endpoints principais
@@ -202,6 +198,7 @@ git push origin feature/nome-da-feature
 - **Evelyn Vitoria Salomao (EvelynVitoria-Salomao)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/EvelynVitoria-Salomao)
 - **Wescley Henrique (WescleyHenrique)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/WescleyHenrique)
 - **Gustavo Lima (Gustavo08Lima)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/Gustavo08Lima)
+- **Victor Geruso Gomes (vgeruso)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/vgeruso)
 
 <p align="center">Made with 🐾</p>
 
@@ -223,6 +220,7 @@ Nosso obrigado vai para essas pessoas incríveis:
 		<td align="center"><a href="https://github.com/EvelynVitoria-Salomao"><img src="https://github.com/EvelynVitoria-Salomao.png?size=100" width="100px;" alt="EvelynVitoria-Salomao"/><br /><sub><b>EvelynVitoria-Salomao</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=EvelynVitoria-Salomao" title="Code">💻</a></td>
 		<td align="center"><a href="https://github.com/WescleyHenrique"><img src="https://github.com/WescleyHenrique.png?size=100" width="100px;" alt="WescleyHenrique"/><br /><sub><b>WescleyHenrique</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=WescleyHenrique" title="Code">💻</a></td>
 		<td align="center"><a href="https://github.com/Gustavo08Lima"><img src="https://github.com/Gustavo08Lima.png?size=100" width="100px;" alt="Gustavo08Lima"/><br /><sub><b>Gustavo08Lima</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=Gustavo08Lima" title="Code">💻</a></td>
+		<td align="center"><a href="https://github.com/vgeruso"><img src="https://github.com/vgeruso.png?size=100" width="100px;" alt="vgeruso"/><br /><sub><b>vgeruso</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=vgeruso" title="Code">💻</a></td>
 	</tr>
 </table>
 
